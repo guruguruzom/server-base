@@ -1,5 +1,6 @@
 package com.example.restfulwebservoce.domain;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
@@ -12,7 +13,8 @@ import javax.validation.constraints.Size;
 
 @Data
 @AllArgsConstructor //모든 항목 모두 담은 생성자 추가
-@JsonIgnoreProperties(value = "ssn") //json 비노출 방법 1
+//@JsonIgnoreProperties(value = "ssn") //json 비노출 방법 1
+@JsonFilter("UserInfo")
 public class User {
     private int id;
 
@@ -22,7 +24,7 @@ public class User {
     @Past //회원 가입날짜는 과거만 사용가능
     private Date createAt;
 
-    @JsonIgnore //json 비노출 방법 2
+
     private String password;
 
     private String ssn;
