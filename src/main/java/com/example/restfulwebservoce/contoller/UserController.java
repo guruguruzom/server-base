@@ -16,7 +16,7 @@ public class UserController {
     @GetMapping("/user/{id}")
     public User getUser(@PathVariable int id){
 
-        return new User(id,"test", new Date());
+        return new User(id,"test", new Date(), "pass", "909090-111111");
     }
 
     @PostMapping("/user")
@@ -38,6 +38,6 @@ public class UserController {
             throw  new UserNotFoundException(String.format("ID[%s] not found", id));
 
         }
-        return new User(id,"test", new Date());
+        return new User(id,"test", new Date(), "pass", "909090-111111");
     }
 }
