@@ -1,6 +1,9 @@
 package com.example.restfulwebservoce.contoller;
 
 import com.example.restfulwebservoce.domain.User;
+
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -9,14 +12,26 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.util.Date;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 @RestController
 public class UserController {
 
 
     @GetMapping("/user/{id}")
-    public User getUser(@PathVariable int id){
+    public EntityModel<User> getUser(@PathVariable int id){
 
-        return new User(id,"test", new Date(), "pass", "909090-111111");
+
+        User user = new User(id, "test", new Date(), "pass", "909090-111111");
+
+        EntityModel<User> resource = new EntityModel<>(user);
+
+        WebMvcLinkBuilder linkTo = linkTo(methodOn(this.getClass()).createUser(user));
+
+        resource.add(linkTo.withRel("all-users"));
+
+        return resource;
     }
 
     @PostMapping("/user")

@@ -14,7 +14,7 @@ import javax.validation.constraints.Size;
 @Data
 @AllArgsConstructor //모든 항목 모두 담은 생성자 추가
 //@JsonIgnoreProperties(value = "ssn") //json 비노출 방법 1
-@JsonFilter("UserInfo")
+//@JsonFilter("UserInfo")
 public class User {
     private int id;
 
