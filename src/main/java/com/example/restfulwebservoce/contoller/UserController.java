@@ -2,6 +2,10 @@ package com.example.restfulwebservoce.contoller;
 
 import com.example.restfulwebservoce.domain.User;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
@@ -15,10 +19,15 @@ import java.util.Date;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
+@Tag(name = "user", description = "사용자 API")
 @RestController
 public class UserController {
 
 
+//    @ApiResponses(value = {
+//            @ApiResponse(responseCode = "200", description = "회원 조회 성공", content = @Content(schema = @Schema(implementation = UserResponse.class))),
+//            @ApiResponse(responseCode = "404", description = "존재하지 않는 리소스 접근", content = @Content(schema = @Schema(implementation = ErrorResponse.class))) })
+    @Operation(summary = "회원 조회", description = "id를 이용하여 user 레코드를 조회합니다.")
     @GetMapping("/user/{id}")
     public EntityModel<User> getUser(@PathVariable int id){
 
