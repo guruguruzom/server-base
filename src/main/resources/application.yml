@@ -16,7 +16,20 @@ spring:
   messages:
     basename: messages
 
-  security:
-    user:
-      name: username
-      password: pass!@#
+#  security:
+#    user:
+#      name: username
+#      password: pass!@#
+  jpa:
+#    hibernate:
+#      ddl-auto: create-drop # 시작할 때 새로 생성 하고 세션을 마칠 때 스키마를 소멸 시킵니다.
+    show-sql: true #jsp 로그 출력되도록
+
+  h2:
+    console:
+      enabled: true
+
+
+  datasource:
+    url: jdbc:h2:mem:testdb
+    username: sa

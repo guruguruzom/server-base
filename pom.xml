@@ -56,18 +56,18 @@
             <artifactId>validation-api</artifactId>
             <version>2.0.1.Final</version>
         </dependency>
-        <dependency>
+        <dependency> <!--http://localhost:8080/swagger-ui/index.html-->
             <groupId>io.springfox</groupId>
             <artifactId>springfox-boot-starter</artifactId>
             <version>3.0.0</version>
         </dependency>
 
-        <dependency>
+        <dependency> <!--http://localhost:8080/actuator-->
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
 
-        <dependency>
+        <dependency> <!--http://localhost:8080/explorer/index.html#uri=/-->
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-rest-hal-explorer</artifactId>
             <version>3.5.1</version>
@@ -77,6 +77,19 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
+
+        <!--jpa dependency-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope> <!--실행단계에서만 사용-->
+        </dependency>
+        <!--jpa dependency-->
     </dependencies>
 
     <build>
