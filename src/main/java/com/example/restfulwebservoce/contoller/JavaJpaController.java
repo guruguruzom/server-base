@@ -5,8 +5,13 @@ import com.example.restfulwebservoce.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
+
+import java.net.URI;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -40,8 +45,20 @@ public class JavaJpaController {
         return resource; //optinal 반환
     }
 
-    @PostMapping("/user/{id}")
-    public void setUsers(@PathVariable int id){
-        userRepository.save(new User(id, "test", new Date(), "pass", "909090-111111"));
+//    @PostMapping("/user/{id}")
+//    public void setUsers(@PathVariable int id){
+//        userRepository.save(new User(id, "test", new Date(), "pass", "909090-111111"));
+//    }
+
+    @PostMapping("/user")
+    public ResponseEntity<User> createUser(@Valid @RequestBody User user){
+        User savedUser = userRepository.save(user);
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("{id}")
+                .buildAndExpand(savedUser.getId())
+                .toUri();
+
+        return ResponseEntity.created(location).build();
+        //userRepository.save(new User(id, "test", new Date(), "pass", "909090-111111"));
     }
 }
