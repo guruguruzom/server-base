@@ -5,8 +5,18 @@ logging:
   level:
     org.springframework: DEBUG
 
+management:
+  endpoint:
+    web:
+      exposure:
+        include: "*"
+
+
 spring:
   messages:
     basename: messages
 
-
+  security:
+    user:
+      name: username
+      password: pass!@#
