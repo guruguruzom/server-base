@@ -11,6 +11,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -21,7 +22,7 @@ public class AdminUserController {
     @GetMapping("/user/{id}")
     public MappingJacksonValue getUser(@PathVariable int id){
 
-        User user = new User(id, "test", new Date(), "pass", "909090-111111");
+        User user = new User(id, "test", new Date(), "pass", "909090-111111", new LinkedList<>());
         SimpleBeanPropertyFilter filter = SimpleBeanPropertyFilter
                 .filterOutAllExcept("id","name");
 
@@ -34,8 +35,8 @@ public class AdminUserController {
     @GetMapping("/user")
     public MappingJacksonValue getUsers(){
        List<User> users = new LinkedList<>();
-        users.add(new User(1, "test1", new Date(), "pass", "909090-111111"));
-        users.add(new User(2, "test2", new Date(), "pass", "909090-211111"));
+        users.add(new User(1, "test1", new Date(), "pass", "909090-111111", new LinkedList<>()));
+        users.add(new User(2, "test2", new Date(), "pass", "909090-211111", new LinkedList<>()));
         SimpleBeanPropertyFilter filter = SimpleBeanPropertyFilter
                 .filterOutAllExcept("id","name");
 
@@ -64,6 +65,6 @@ public class AdminUserController {
             throw  new UserNotFoundException(String.format("ID[%s] not found", id));
 
         }
-        return new User(id,"test", new Date(), "pass", "909090-111111");
+        return new User(id,"test", new Date(), "pass", "909090-111111", new LinkedList<>());
     }
 }

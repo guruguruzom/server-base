@@ -1,5 +1,6 @@
 package com.example.restfulwebservoce.contoller;
 
+import com.example.restfulwebservoce.dao.PostRepository;
 import com.example.restfulwebservoce.dao.UserRepository;
 import com.example.restfulwebservoce.domain.Post;
 import com.example.restfulwebservoce.domain.User;
@@ -26,6 +27,9 @@ public class JavaJpaController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private PostRepository postRepository;
+
     @GetMapping("/users")
     public List<User> retrieveAllUsers(){
         return userRepository.findAll();
@@ -46,12 +50,8 @@ public class JavaJpaController {
         return resource; //optinal 반환
     }
 
-//    @PostMapping("/user/{id}")
-//    public void setUsers(@PathVariable int id){
-//        userRepository.save(new User(id, "test", new Date(), "pass", "909090-111111"));
-//    }
 
-    @PostMapping("/user")
+    @PostMapping("/user/{id}")
     public ResponseEntity<User> createUser(@Valid @RequestBody User user){
         User savedUser = userRepository.save(user);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
@@ -63,5 +63,34 @@ public class JavaJpaController {
         //userRepository.save(new User(id, "test", new Date(), "pass", "909090-111111"));
     }
 
+    @PostMapping("/user/{id}/posts")
+    public ResponseEntity<Post> createPost(@PathVariable int id, @RequestBody Post post){
+        Optional<User> user = userRepository.findById(id);
 
+        if(!user.isPresent()){ //id값이 존재하지 않을때 처리
+            throw  new UserNotFoundException(String.format("ID{%s} not found", id));
+        }
+
+        post.setUser(user.get());
+        Post savedPost = postRepository.save(post);
+
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("{id}")
+                .buildAndExpand(savedPost.getId())
+                .toUri();
+
+        return ResponseEntity.created(location).build();
+        //userRepository.save(new User(id, "test", new Date(), "pass", "909090-111111"));
+    }
+    @GetMapping("/user/{id}/posts")
+    public List<Post> retrieveAllPostsByUsers(@PathVariable int id){
+        Optional<User> user = userRepository.findById(id); //optinal 반환
+
+        if(!user.isPresent()){ //id값이 존재하지 않을때 처리
+            throw  new UserNotFoundException(String.format("ID{%s} not found", id));
+        }
+
+
+        return user.get().getPosts(); //optinal 반환
+    }
 }
