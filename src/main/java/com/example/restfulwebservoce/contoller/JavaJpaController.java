@@ -4,6 +4,7 @@ import com.example.restfulwebservoce.dao.PostRepository;
 import com.example.restfulwebservoce.dao.UserRepository;
 import com.example.restfulwebservoce.domain.Post;
 import com.example.restfulwebservoce.domain.User;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
@@ -23,12 +24,13 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping("/jpa")
+@RequiredArgsConstructor
 public class JavaJpaController {
-    @Autowired
-    private UserRepository userRepository;
+    //@Autowired
+    private final UserRepository userRepository;
 
-    @Autowired
-    private PostRepository postRepository;
+    //@Autowired
+    private final PostRepository postRepository;
 
     @GetMapping("/users")
     public List<User> retrieveAllUsers(){
