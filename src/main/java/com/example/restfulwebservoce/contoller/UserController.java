@@ -1,5 +1,6 @@
 package com.example.restfulwebservoce.contoller;
 
+import com.example.restfulwebservoce.domain.Post;
 import com.example.restfulwebservoce.domain.User;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -15,6 +16,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.Date;
+import java.util.LinkedList;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
@@ -32,7 +34,7 @@ public class UserController {
     public EntityModel<User> getUser(@PathVariable int id){
 
 
-        User user = new User(id, "test", new Date(), "pass", "909090-111111");
+        User user = new User(id, "test", new Date(), "pass", "909090-111111", new LinkedList<>());
 
         EntityModel<User> resource = new EntityModel<>(user);
 
@@ -62,6 +64,8 @@ public class UserController {
             throw  new UserNotFoundException(String.format("ID[%s] not found", id));
 
         }
-        return new User(id,"test", new Date(), "pass", "909090-111111");
+        return new User(id,"test", new Date(), "pass", "909090-111111", new LinkedList<>());
     }
+
+
 }

@@ -1,6 +1,7 @@
 package com.example.restfulwebservoce.contoller;
 
 import com.example.restfulwebservoce.dao.UserRepository;
+import com.example.restfulwebservoce.domain.Post;
 import com.example.restfulwebservoce.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityModel;
@@ -61,4 +62,6 @@ public class JavaJpaController {
         return ResponseEntity.created(location).build();
         //userRepository.save(new User(id, "test", new Date(), "pass", "909090-111111"));
     }
+
+
 }

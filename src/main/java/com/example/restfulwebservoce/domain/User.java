@@ -10,10 +10,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 
@@ -41,4 +43,8 @@ public class User {
     private String password;
 
     private String ssn;
+
+    //user data와 매핑
+    @OneToMany(mappedBy = "user")
+    private List<Post> posts;
 }
